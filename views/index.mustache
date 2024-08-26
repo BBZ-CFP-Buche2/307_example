@@ -1,0 +1,13 @@
+{{> header}}
+  <h1>{{ heading }}</h1>
+  <p>{{ message }}</p>
+
+
+<h2>User List:</h2>
+<ul>
+    {{#users}}
+        <li>{{id}}: {{email}}</li>
+    {{/users}}
+</ul>
+
+{{> footer}}
