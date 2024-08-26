@@ -4,7 +4,12 @@ var router = express.Router();
 /* GET home page. */
 router.get('/', async function(req, res, next) {
   let users = [];
-
+  const user = await req.login.loggedInUser(req);
+  if (!user) {
+    // <--
+    res.redirect("/"); // <--
+    return; // <--
+  }
   try {
     const conn = await req.pool.getConnection(); // Verwende den Pool aus der Anfrage
     users = await conn.query("SELECT * FROM users");
