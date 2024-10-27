@@ -61,7 +61,7 @@ class Login {
             return false;
         }
         const user = users[0];
-        console.log(password);
+        //console.log(password);
         const correct = await bcrypt.compare(password, user[this.passwordColumn]);
         if (correct) {
             req.session.userid = user.id.toString();

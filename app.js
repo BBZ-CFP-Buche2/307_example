@@ -9,6 +9,17 @@ const multer = require("multer");
 const upload = multer({ dest: "public/uploads/" });
 const bcrypt = require("bcrypt");
 const mariadb = require("mariadb");
+const pg = require("pg");
+
+const meinprojekt_pool = new pg.Pool({
+    host: 'dpg-csfaibe8ii6s739e061g-a.frankfurt-postgres.render.com',
+    user: 'myuser',
+    password: 'WcUKJlglpUR2rdnsQrPrjes8Uouoz5xc',
+    database: 'mydb_lgz9',
+    port: 5432,
+    ssl: true
+});
+
 
 const pool = mariadb.createPool({
   host: 'nexdu.ch',
@@ -17,6 +28,8 @@ const pool = mariadb.createPool({
   database: 'ebuchs_bbz',
   connectionLimit: 5
 });
+
+const pool2 = pg.Pool;
 
 
 var indexRouter = require('./routes/index');
@@ -49,6 +62,7 @@ app.use(
 
 app.use((req, res, next) => {
   req.pool = pool; // Der Pool wird der Anforderung hinzugefügt
+  req.meinprojekt_pool = meinprojekt_pool;
   req.login = new Login(
       "users",
       ["email", "passwort"],

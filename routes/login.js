@@ -15,6 +15,8 @@ router.post("/login", upload.none(), async (req, res) => {
 
     const user = await req.login.loginUser(req);
 
+    console.log(user[0]);
+
     if (!user) {
         res.redirect("/");
         return;
