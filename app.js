@@ -68,7 +68,8 @@ app.use((req, res, next) => {
       ["email", "passwort"],
       pool
   );
-  req.upload = upload;
+    res.locals.search = req.query.search || ""; // Default to an empty string if no search query is provided
+    req.upload = upload;
   next();
 });
 
