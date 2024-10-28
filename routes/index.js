@@ -89,7 +89,14 @@ router.get('/', async function(req, res, next) {
     const conn2 = await req.meinprojekt_pool;
 
     //posts = await conn2.query("SELECT * FROM posts where user_id = $1", [user[0].id]);
-    posts = await conn2.query("SELECT *, user_id = $1 as is_mine FROM posts", [user[0].id]);
+    if(req.query.search){
+      posts = await conn2.query(
+          "SELECT *, user_id = $1 as is_mine FROM posts WHERE titel ILIKE $2 OR inhalt ILIKE $2",
+          [user[0].id, `%${req.query.search}%`]
+      );
+    }else {
+      posts = await conn2.query("SELECT *, user_id = $1 as is_mine FROM posts", [user[0].id]);
+    }
 
   } catch (err) {
     console.error("Fehler bei der Datenbankabfrage:", err);
