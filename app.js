@@ -10,22 +10,23 @@ const upload = multer({ dest: "public/uploads/" });
 const bcrypt = require("bcrypt");
 const mariadb = require("mariadb");
 const pg = require("pg");
+require('dotenv').config()
 
 const meinprojekt_pool = new pg.Pool({
-    host: 'dpg-csfaibe8ii6s739e061g-a.frankfurt-postgres.render.com',
-    user: 'myuser',
-    password: 'WcUKJlglpUR2rdnsQrPrjes8Uouoz5xc',
-    database: 'mydb_lgz9',
+    host: process.env.PG_DB_HOST,
+    user: process.env.PG_DB_USER,
+    password: process.env.PG_DB_PASSWORD,
+    database: process.env.PG_DB_DATABASE,
     port: 5432,
     ssl: true
 });
 
 
 const pool = mariadb.createPool({
-  host: 'nexdu.ch',
-  user: 'ebuchs_bbz',
-  password: 'K5p68o6b@',
-  database: 'ebuchs_bbz',
+  host: process.env.MA_DB_HOST,
+  user: process.env.MA_DB_USER,
+  password: process.env.MA_DB_PASSWORD,
+  database: process.env.MA_DB_DATABASE,
   connectionLimit: 5
 });
 
